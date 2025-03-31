@@ -1,0 +1,146 @@
+//client
+import java.net.*;
+import java.util.Scanner;
+
+class UnifiedClient {
+    public static void main(String[] args) {
+        try (DatagramSocket socket = new DatagramSocket()) {
+            Scanner scanner = new Scanner(System.in);
+            InetAddress serverAddress = InetAddress.getLocalHost();
+            byte[] buffer = new byte[4096];
+
+            System.out.println("Available Commands:");
+            System.out.println("Arithmetic: add, sub, mul, div <num1> <num2>");
+            System.out.println("Math Functions: square, sqrt, cube, cbrt <num>");
+            System.out.println("Factorial: facto <num>");
+            System.out.println("Fibonacci: fibonacci <num>");
+            System.out.println("Enter 'q' to exit.");
+
+            while (true) {
+                System.out.print("\nEnter command: ");
+                String message = scanner.nextLine();
+                if (message.equalsIgnoreCase("q")) break;
+
+                byte[] data = message.getBytes();
+                DatagramPacket request = new DatagramPacket(data, data.length, serverAddress, 1200);
+                socket.send(request);
+
+                DatagramPacket response = new DatagramPacket(buffer, buffer.length);
+                socket.receive(response);
+                System.out.println("Result: " + new String(response.getData(), 0, response.getLength()));
+            }
+            scanner.close();
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+}
+
+
+//Server
+import java.net.*;
+
+class UnifiedServer {
+    DatagramSocket socket;
+    DatagramPacket packet;
+    String input, methodName, result;
+    int intVal1, intVal2;
+    double dVal1;
+
+    UnifiedServer() {
+        try {
+            socket = new DatagramSocket(1200);
+            byte buffer[] = new byte[4096];
+
+            while (true) {
+                packet = new DatagramPacket(buffer, buffer.length);
+                socket.receive(packet);
+                input = new String(packet.getData(), 0, packet.getLength());
+
+                String[] tokens = input.split(" ");
+                methodName = tokens[0];
+
+                if (methodName.equalsIgnoreCase("q")) {
+                    System.exit(1);
+                } else if (methodName.equalsIgnoreCase("add") ||
+                           methodName.equalsIgnoreCase("sub") ||
+                           methodName.equalsIgnoreCase("mul") ||
+                           methodName.equalsIgnoreCase("div")) {
+                    intVal1 = Integer.parseInt(tokens[1]);
+                    intVal2 = Integer.parseInt(tokens[2]);
+                    result = handleArithmetic(methodName, intVal1, intVal2);
+                } else if (methodName.equalsIgnoreCase("square") ||
+                           methodName.equalsIgnoreCase("sqrt") ||
+                           methodName.equalsIgnoreCase("cube") ||
+                           methodName.equalsIgnoreCase("cbrt")) {
+                    dVal1 = Double.parseDouble(tokens[1]);
+                    result = handleMathFunction(methodName, dVal1);
+                } else if (methodName.equalsIgnoreCase("facto")) {
+                    intVal1 = Integer.parseInt(tokens[1]);
+                    result = "" + factorial(intVal1);
+                } else if (methodName.equalsIgnoreCase("fibonacci")) {
+                    intVal1 = Integer.parseInt(tokens[1]);
+                    result = fibonacciSeries(intVal1);
+                } else {
+                    result = "Error: Invalid Operation";
+                }
+
+                byte[] response = result.getBytes();
+                DatagramPacket responsePacket = new DatagramPacket(response, response.length,
+                        InetAddress.getLocalHost(), 1300);
+                socket.send(responsePacket);
+            }
+        } catch (Exception e) {
+            e.printStackTrace();
+        }
+    }
+
+    private String handleArithmetic(String operation, int a, int b) {
+        switch (operation.toLowerCase()) {
+            case "add": return "" + (a + b);
+            case "sub": return "" + (a - b);
+            case "mul": return "" + (a * b);
+            case "div": return b != 0 ? "" + (a / b) : "Error: Division by zero";
+            default: return "Invalid arithmetic operation";
+        }
+    }
+
+    private String handleMathFunction(String operation, double num) {
+        switch (operation.toLowerCase()) {
+            case "square": return "" + (num * num);
+            case "sqrt": return "" + Math.sqrt(num);
+            case "cube": return "" + (num * num * num);
+            case "cbrt": return "" + Math.cbrt(num);
+            default: return "Invalid math function";
+        }
+    }
+
+    private long factorial(int num) {
+        long result = 1;
+        for (int i = 1; i <= num; i++) {
+            result *= i;
+        }
+        return result;
+    }
+
+    private String fibonacciSeries(int n) {
+        if (n <= 0) {
+            return "Input must be a positive integer";
+        }
+        StringBuilder fibSeries = new StringBuilder();
+        long a = 0, b = 1;
+        for (int i = 0; i < n; i++) {
+            fibSeries.append(a).append(" ");
+            long next = a + b;
+            a = b;
+            b = next;
+        }
+        return fibSeries.toString().trim();
+    }
+
+    public static void main(String[] args) {
+        new UnifiedServer();
+    }
+}
+
+
