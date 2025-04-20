@@ -1,0 +1,20 @@
+Practical 7
+Cain and Abel is a password recovery tool for Microsoft Windows. It could recover many kinds of passwords using methods such as network packet sniffing, cracking various password hashes by using methods such as dictionary attacks, brute force and cryptanalysis attacks.
+This is a step-by-step practical of how to crack a password using hashing in Cain & Abel.
+1.	In the folder have file password.txt with content Password: 123456 -> The file will contain a password to extract. Use the password to extract the file and start the setup.
+2.	Once installation is complete->In the menu bar, there is an icon for a Hash Calculator as shown in the screenshot below. Click on it.
+3.	A dialog box will open where the user has to give some text input(password) and the output will be the hash value.
+4.	Here the example text being used is ‘password’. Type this into the input field and let the software generate the hash values by clicking on ‘Calculate’.
+5.	The output shows the hashing in various algorithms. Over here, we need the value for the MD5 hashing so copy paste the value of the MD5 hash. The hash value is: 5F4DCC3B5AA765D61D8327DEB882CF99
+6.	Copy this hash value into the computer.->Now in the Cain application, go to the Cracker tab and click on the MD5 hashes (0) option in the sidebar menu. 
+7.	 Click on MD5 Hashes in the top table title and click on ‘+’ on the toolbar to add a new MD5 Hash value.
+8.	Add the copied hash value into the dialog box that pops up.
+9.	After pressing ‘OK’, the hash value now appears in the table as an entry.
+10.	Right-click on the entry that was just added and click on the ‘Dictionary Attack’ option. 
+11.	A new dialog box will open.->Since it is a dictionary attack, there needs to be some word list source to scour through passwords and find a match for the hash.
+12.	 Right-click on the Dictionary area and choose ‘Add to list’ to use a reference to a Word list.
+13.	The file explorer will now open. Cain has a default Wordlist that can be used as a dictionary for the attack. Choose this Wordlist.txt file and click on ‘Open’.
+14.	The word list will now appear as a source in the dialog box. 
+15.	You can choose what kind of passwords to match depending on the leniency of the variance of the passwords. In this case, we need case sensitivity but other parameters are ignored. If you need the perfect match of the same password, uncheck all the options.
+16.	Start the Dictionary attack and wait until it is over. The progress is shown on the dictionary position section. 
+17.	The dictionary attack is now complete and the original password is retrieved.

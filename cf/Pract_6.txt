@@ -1,0 +1,8 @@
+Practical 6
+Browser History examiner
+Use / purpose:
+To capture and analyze web browsing history from a local computer using the Browser History Examiner tool for forensic investigation.
+Steps:
+Download all files in your project folder -> run setup.exe file to install it.
+Click Capture History -> Capture history from this computer -> Next -> select options -> Destination select your project directory-> capture -> Wait for the process to complete.
+After capturing-> go to File option-> Load History ->path will come->next->Load.-> wait for some time.-> check bookmarks section(on left) -> also check its Report Preview(Top options)->same way check all left options one by one -> after last option(website visits) -> got to main file option ->Report->Save as PDF->save in your project folder->check in chrome ->again got to main file option-> Export -> Export to HTML -> select->all options(export all records)->Export->save as Report in your project folder.check in chrome by opening it.

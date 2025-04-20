@@ -1,0 +1,78 @@
+Code:
+import os
+import logging
+from pynput.mouse import Listener
+
+# Create directory if not exists
+if not os.path.exists("C:\\HTML"):
+    os.makedirs("C:\\HTML")
+    print("[INFO] Created directory: C:\\HTML")
+else:
+    print("[INFO] Directory already exists: C:\\HTML")
+
+# Run WMIC command
+print("[INFO] Running WMIC command to generate process log...")
+cmd = 'wmic /output:C:\\HTML\\process_log.html process get processid, name, description, creationdate, installdate /format:htable'
+os.system(cmd)
+print("[INFO] Process log saved to C:\\HTML\\process_log.html")
+
+# Logging configuration (set only once)
+logging.basicConfig(
+    filename="mouselog.txt",
+    level=logging.DEBUG,
+    format="%(asctime)s: %(message)s"
+)
+print("[INFO] Mouse and error logs will be saved to 'mouselog.txt'")
+
+# Mouse events
+def move(x, y):
+    logging.info("Mouse moved to {}, {}".format(x, y))
+
+def onclick(x, y, button, pressed):
+    if pressed:
+        logging.info("Mouse {} pressed at ({}, {})".format(button, x, y))
+
+def onscroll(x, y, dx, dy):
+    logging.info("Mouse scrolled from ({}, {}) to ({}, {})".format(x, y, dx, dy))
+
+# Start mouse listener
+print("[INFO] Listening for mouse events. Move, click, or scroll to generate logs.")
+print("[INFO] Press Ctrl+C or close the window to stop.")
+with Listener(on_move=move, on_scroll=onscroll, on_click=onclick) as listener:
+    listener.join()
+
+# Error examples
+print("[INFO] Testing some common Python errors...")
+try:
+    print("abc" + 123)
+except TypeError as e:
+    logging.error(e)
+
+try:
+    a = [1, 2, 3]
+    print(a[5])
+except IndexError as e:
+    logging.error(e)
+
+try:
+    x = some_variable
+except NameError as e:
+    logging.error(e)
+
+try:
+    num = 10
+    print(num.append(20))
+except AttributeError as e:
+    logging.error(e)
+
+try:
+    print({1: 1, 2: 2}[3])
+except KeyError as e:
+    logging.error(e)
+
+try:
+    print(10 / 0)
+except ZeroDivisionError as e:
+    logging.error(e)
+
+print("[INFO] Script finished. Check 'mouselog.txt' for details.")

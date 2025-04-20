@@ -1,0 +1,28 @@
+Practical 2 
+ Access Data FTK 
+Use/purpose:
+To examine a forensic image using FTK, perform keyword searches, create bookmarks, and generate reports for digital investigation purposes.
+Steps:
+After installation->Start a new Case -> Enter New Case Details->Case Log Options-> make sure all checked (same for next page)->Next->Next->Add Evidence(Button Click)->Aquired Image of Drive -> continue -> select precious.img -> open -> Evidence Identification Name/Number=1 -> ok.
+Next -> finish -> wait some time. -> wait for carving files to process.
+Check documents section (under file category) -> check unchecked items(under Evidence items) ->
+select any file named $Boot from below part -> right click -> Create Bookmark->Enter its name -> click ok.
+In bookmarks tab from top options  go there -> +Bk -> its ss 
+Then click on Bk -> right click-> delete bookmark.
+Indexed Search
+Add two words and Search Results
+Now go to search tab -> in Search Term enter email -> select it from left list -> click on add-> same for  password keyword.-> click on view cumulative Results button there -> click ok ->check by clicking on + on right side.
+click on first then + then check its keywords search results below(will come highlighted).
+Check for both email and password words.
+Search Options 
+Add term and Search Results
+Again add a item = raise -> click on options button next to Import -> select “Phonic” ->Ok
+Click on raise(in added part) -> view cumulative results -> ok->on next window -> select Apply to all options checkbox-> now on right par check one more row added for raise query check that -> check by clicking + on first(sub row) and show it in below part as highlighted.
+Live Search
+Add term and Search Results
+Search item = email -> add -> with (ASCII , Unicode , Regular Expression checkboxes checked) -> click on Search button -> ok->check results on right side list->click + and show its results in below part to show highlighted email keyword.
+Report Generation
+In main file option->Report wizard -> Enter details -> Next->Next->Next->Next ->Next till Report Location part -> Finish -> yes -> see report on chrome.
+Backup Case
+Try closing the s/w -> in warning select yes-> select same your project folder.
+Backup created->Open Existing Case in s/w(FTK file).
