@@ -1,0 +1,13 @@
+Practical 1
+1. FTK Imager
+Use/Purpose
+•	Acquiring digital evidence
+•	Viewing file contents in hex format
+•	Creating and verifying forensic images of folders or drives without changing original data
+
+Steps
+File->Add Evidence Item->Select Contents of Folder
+Specify folder path (your practical folder)->finish (add a text file in folder)
+Click on the File(in evidence tree click on last branch) -> View file in Hex decimal format (button click then you will see text file content below in hex as well in original form).
+Now For Creating Image -> Add Evidence Item in same folder( as done earlier )
+Click New below button h new likha hua -> Create Image-> Add Image Destination(I.e click add..)->Enter Evidence Information->Next-> Specify Image Destination folder(your project folder) and Image Filename(Case1)->click on Start->Image Verify Results->check Image created in your folder with ext .ad1 and .ad1.txt ->check .ad1.txt ka content to show->done
